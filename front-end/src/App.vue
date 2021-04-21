@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/profiles">Profiles</router-link>
+      <router-link to="/profiles">Profile</router-link>
+      <a v-if="user" @click="logout"> | <u>Logout</u></a>
     </div>
     <router-view/>
     <div id="push"></div>
@@ -11,6 +12,29 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'App',
+  computed: {
+    user() {
+      return this.$root.$data.user;
+    },
+  },
+  methods: {
+    async logout() {
+      try {
+        await axios.delete("/api/users");
+        this.$root.$data.user = null;
+      } catch (error) {
+        this.$root.$data.user = null;
+      }
+    }
+  }
+}
+</script>
 
 <style>
 body {
@@ -42,7 +66,7 @@ body {
 #footer {
   display: flex;
   justify-content: center;
-  background-color: #83C880;
+  /*background-color: #83C880;*/
   padding: 50px 0;
   align-items: center;
   flex-direction: column;

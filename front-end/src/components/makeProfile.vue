@@ -2,8 +2,10 @@
 <div>
 <form class="login" @submit.prevent="login">
     <h1>Login</h1>
-    <input v-model="usernameLogin" placeholder="username">
-    <input type="password" v-model="passwordLogin" placeholder="password">
+    <input v-model="usernameLogin" placeholder="username" class="username">
+    <div></div>
+    <input type="password" v-model="passwordLogin" placeholder="password" class="password">
+    <div></div>
     <button type="submit">Login</button>
 </form>
 
@@ -27,11 +29,11 @@
     </div>
     <div>
         <p>Bio</p>
-        <textarea v-model="bio" placeholder="Bio"></textarea>
+        <textarea v-model="bio" placeholder="Please keep it brief"></textarea>
     </div>
     <div>
         <p>Choose a Password</p>
-        <input type="password" v-model="password" placeholder="Password">
+        <input type="password" v-model="password" placeholder="Password" class="password">
     </div>
     <div v-if="this.errors.length" class="errors">
         <p>Error:</p>
@@ -177,7 +179,13 @@ textarea {
     margin: 30px;
 }
 
+.username {
+    margin-bottom: 10px;
+}
 
+.password {
+    margin-bottom: 10px;
+}
 
 @media only screen and (min-width: 401px) and (max-width: 960px) {
     .identity {

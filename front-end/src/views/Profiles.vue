@@ -5,14 +5,14 @@
         <p>Name: {{user.name}}</p>
         <p>Username: {{user.username}}</p>
         <img :src="user.avatar">
+        <p>Bio:</p>
         <textarea v-model="user.bio"></textarea>
+        <div></div>
         <button type="submit" @click.prevent="editBio">Edit</button>
-        <button type="button" @click="logout">Logout</button>
     </div>
 
-    <div v-else>
+    <div v-else class="loginpage">
         <p><a href="/">Login</a> to view profile</p>
-        
     </div>
 </div>
 </template>
@@ -33,24 +33,43 @@ export default {
         },
     },
     methods: {
-        async logout() {
-            try {
-                await axios.delete("/api/users");
-                this.$root.$data.user = null;
-            } catch (error) {
-                this.$root.$data.user = null;
-            }
-        },
         async editBio() {
             await axios.put("/api/users/" + this.user._id, {
                 bio: this.user.bio,
             });
-            //this.$root.$data.user = response.data.user;
         }
     }
 }
 </script>
 
 <style>
+.profile {
+    text-align: left;
+    padding-left: 10px;
+}
 
+h1 {
+    text-align: center;
+}
+
+.loginpage {
+    text-align: center;
+    padding-top: 60px;
+}
+
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+    .profile {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (min-width: 961px) {
+    .profile {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
 </style>
